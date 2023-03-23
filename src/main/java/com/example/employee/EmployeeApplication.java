@@ -31,6 +31,9 @@ class GreetingsController {
 	@Autowired
 	private DiscoveryClient discoveryClient;
 
+	@Autowired
+	private DepartmentFeign departmentFeign;
+
 	@GetMapping
 	public String greetings() {
 		return "Hello!, from employee application.";
@@ -39,6 +42,11 @@ class GreetingsController {
 	@GetMapping("/allservices")
 	public List<String> getAllClients() {
 		return discoveryClient.getServices();
+	}
+
+	@GetMapping("/feign")
+	public String getDepartmentName() {
+		return this.departmentFeign.getAppName();
 	}
 
 }
