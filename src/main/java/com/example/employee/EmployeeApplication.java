@@ -1,5 +1,7 @@
 package com.example.employee;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -34,18 +36,23 @@ class GreetingsController {
 	@Autowired
 	private DepartmentFeign departmentFeign;
 
+	private Logger logger = LoggerFactory.getLogger(GreetingsController.class);
+
 	@GetMapping
 	public String greetings() {
+		logger.info("Hello");
 		return "Hello!, from employee application.";
 	}
 
 	@GetMapping("/allservices")
 	public List<String> getAllClients() {
+		logger.info("all services");
 		return discoveryClient.getServices();
 	}
 
 	@GetMapping("/feign")
 	public String getDepartmentName() {
+		logger.info("feign");
 		return this.departmentFeign.getAppName();
 	}
 
